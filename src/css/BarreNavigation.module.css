@@ -1,0 +1,34 @@
+.menu-btn {
+    cursor: pointer;
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 22px;
+    position: relative;
+  }
+  
+  .menu-btn span {
+    background-color: #fff;
+    height: 3px;
+    width: 30px;
+    display: block;
+    transition: 0.3s ease-in-out;
+  }
+  
+  .menu-btn.open span:nth-child(1) {
+    transform: rotate(-45deg) translate(-5px, 6px);
+  }
+  
+  .menu-btn.open span:nth-child(2) {
+    opacity: 0;
+  }
+  
+  .menu-btn.open span:nth-child(3) {
+    transform: rotate(45deg) translate(-5px, -6px);
+  }
+  @media (max-width: 1280px) {
+    .menu-btn {
+      display: flex;
+    }
+  }

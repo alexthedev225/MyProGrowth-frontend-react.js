@@ -1,0 +1,38 @@
+/* UserSkills.module.css */
+
+.userSkillsContainer {
+  margin-top: 20px;
+}
+
+.skillCard {
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.skillCardContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.skillButtons {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.skillButtons a {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.skillButtons a:hover {
+  background-color: #0056b3;
+}
