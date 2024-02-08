@@ -7,7 +7,7 @@ const CreateEmotionalWellnessEntry = () => {
   const [moodDescription, setMoodDescription] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const authToken = Cookies.get('jwt_token');
+  const authToken = Cookies.get('token');
 
   const handleCreateEntry = async () => {
     setLoading(true);

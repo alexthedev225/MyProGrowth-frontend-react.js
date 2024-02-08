@@ -9,7 +9,7 @@ const CreateProfile = () => {
   const [emotionalWellbeing, setEmotionalWellbeing] = useState("");
   const [error, setError] = useState(null);
 
-  const authToken = Cookies.get("jwt_token");
+  const authToken = Cookies.get("token");
   const navigate = useNavigate();
 
   const handleCreateProfile = async () => {

@@ -18,7 +18,7 @@ const UserLifestyle = ({ onLifestyleUpdateClick, onHasLifestyle }) => {
   const [lifestyleData, setLifestyleData] = useState({});
   const [error, setError] = useState(null);
   const userId = Cookies.get("userId");
-  const authToken = Cookies.get("jwt_token");
+  const authToken = Cookies.get("token");
 
   useEffect(() => {
     const fetchUserLifestyle = async () => {

@@ -6,7 +6,7 @@ const SkillForm = () => {
   const [skillLevel, setSkillLevel] = useState("facile");
 
   const handleSkillSubmit = (skillData) => {
-    const authToken = Cookies.get("jwt_token");
+    const authToken = Cookies.get("token");
 
     // Vérifier si le token est présent
     if (!authToken) {

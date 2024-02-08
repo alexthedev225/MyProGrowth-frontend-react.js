@@ -6,7 +6,7 @@ const GetUserFitnessEntries = () => {
   const [fitnessEntries, setFitnessEntries] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const authToken = Cookies.get('jwt_token'); // Assurez-vous que la clé du cookie est correcte
+  const authToken = Cookies.get('token'); // Assurez-vous que la clé du cookie est correcte
 
   useEffect(() => {
     const userId = Cookies.get('userId'); // Assurez-vous que la clé du cookie est correcte

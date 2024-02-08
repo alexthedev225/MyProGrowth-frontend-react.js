@@ -7,7 +7,7 @@ const CreateLifestyle = () => {
   const [eatingHabits, setEatingHabits] = useState('');
   const [error, setError] = useState(null);
 
-  const authToken = Cookies.get('jwt_token');
+  const authToken = Cookies.get('token');
 
   // Ajoutons une liste d'habitudes alimentaires pré-définies
   const predefinedEatingHabits = ["Végétarien", "Végétalien", "Sans gluten", "Autre"];

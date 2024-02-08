@@ -8,7 +8,7 @@ const CreateFitnessEntry = () => {
   const [date, setDate] = useState("");
   const [error, setError] = useState(null);
 
-  const authToken = Cookies.get("jwt_token");
+  const authToken = Cookies.get("token");
 
   const caloriesPerMinute = {
     running: 10,

@@ -14,7 +14,7 @@ const UsersFitness = ({ onFitnessUpdateClick }) => {
   const [fitnessToDelete, setFitnessToDelete] = useState(null);
   const [error, setError] = useState(null);
 
-  const authToken = Cookies.get("jwt_token");
+  const authToken = Cookies.get("token");
   const userId = Cookies.get("userId");
 
   const exerciseTypeTranslations = {

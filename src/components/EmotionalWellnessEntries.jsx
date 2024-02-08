@@ -7,7 +7,7 @@ const EmotionalWellnessEntries = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const authToken = Cookies.get('jwt_token'); 
+  const authToken = Cookies.get('token'); 
   const userId = Cookies.get('userId')
 
   useEffect(() => {

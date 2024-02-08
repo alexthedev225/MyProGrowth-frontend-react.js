@@ -10,7 +10,7 @@ const UpdateSkill = ({ skillId, onCancel }) => {
   const [skillName, setSkillName] = useState("");
   const [skillLevel, setSkillLevel] = useState("");
   const [loading, setLoading] = useState(true);
-  const authToken = Cookies.get("jwt_token");
+  const authToken = Cookies.get("token");
 
   useEffect(() => {
     fetch(`https://myprogrowth.onrender.com/api/skills/${skillId}`, {

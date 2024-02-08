@@ -11,7 +11,7 @@ const UpdateFitnessEntry = ({ fitnessId, onCancel }) => {
   const [date, setDate] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const authToken = Cookies.get("jwt_token");
+  const authToken = Cookies.get("token");
 
   useEffect(() => {
     const fetchFitnessEntryDetails = async () => {

@@ -11,7 +11,7 @@ const UpdateLifestyle = ({ onCancel }) => {
   const [error, setError] = useState(null);
 
   const userId = Cookies.get("userId"); // Assurez-vous que la clé du cookie est correcte
-  const authToken = Cookies.get("jwt_token"); // Remplace cela par la vraie logique pour obtenir le token
+  const authToken = Cookies.get("token"); // Remplace cela par la vraie logique pour obtenir le token
 
   useEffect(() => {
     // Charger le mode de vie de l'utilisateur lors du montage du composant

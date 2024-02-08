@@ -16,7 +16,7 @@ const UserSkills = ({ onSkillUpdateClick }) => {
   const [error, setError] = useState(null);
 
   // Récupérer le token d'autorisation depuis l'endroit où il est stocké (par exemple, dans le state ou dans les cookies)
-  const authToken = Cookies.get("jwt_token");
+  const authToken = Cookies.get("token");
   // Récupérer l'ID de l'utilisateur à partir du token
   const userId = Cookies.get("userId"); // Remplace cela par la vraie logique pour obtenir l'ID
 

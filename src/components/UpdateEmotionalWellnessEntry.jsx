@@ -9,7 +9,7 @@ const UpdateEmotionalWellnessEntry = ({ onCancel, emotionalWellnessId }) => {
   const [moodDescription, setMoodDescription] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const authToken = Cookies.get('jwt_token');
+  const authToken = Cookies.get('token');
 
   useEffect(() => {
     const fetchEntryDetails = async () => {
