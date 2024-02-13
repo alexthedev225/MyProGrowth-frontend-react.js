@@ -4,12 +4,13 @@ import styles from "../css/BarreNavigation.module.css";
 import CtaSection from "./CtaSection";
 import LogoutButton from "./LogoutButton";
 import Cookies from "js-cookie";
+import logo from "../assets/myprogrowth-logo.png";
 
 const BarreNavigation = () => {
   const [estMenuOuvert, setEstMenuOuvert] = useState(false);
   const basculerMenu = () => {
     setEstMenuOuvert(!estMenuOuvert);
-   };
+  };
   useEffect(() => {
     // Ajoute ou supprime la classe no-scroll au body lorsque le menu est ouvert ou fermé
     if (estMenuOuvert) {
@@ -23,43 +24,52 @@ const BarreNavigation = () => {
       document.body.classList.remove("no-scroll");
     };
   }, [estMenuOuvert]);
-  
+
   const isAuthenticated = Cookies.get("token");
   return (
     <div>
       {/* Barre de navigation */}
-      <nav className="box-decoration-slice bg-gradient-to-r from-blue-500 to-pink-500 p-4 fixed w-full z-50">
+      <nav className="bg-white p-4 w-full z-50 border">
         <div className="container mx-auto flex justify-between items-center">
-          <div className="text-white font-bold text-xl">
-            <Link to="/">MyProGrowth</Link>
-          </div>
+          <Link to="/">
+            <img src={logo} alt="logo" className="h h-8" />
+          </Link>
           <CtaSection />
           <div className="hidden xl:flex space-x-4">
-            <Link to="/" className="text-white hover:underline">
+            <Link
+              to="/"
+              className="text-black hover:underline font-semibold text-sm "
+            >
               Accueil
             </Link>
-            <Link to="/skills/dashboard" className="text-white hover:underline">
+            <Link
+              to="/skills/dashboard"
+              className="text-black hover:underline font-semibold text-sm"
+            >
               Compétences
             </Link>
             <Link
               to="/fitness/dashboard"
-              className="text-white hover:underline"
+              className="text-black hover:underline font-semibold text-sm"
             >
               Fitness
             </Link>
             <Link
               to="/lifestyle/dashboard"
-              className="text-white hover:underline"
+              className="text-black hover:underline font-semibold text-sm"
             >
               Style de vie
             </Link>
             <Link
               to="/emotional-wellness/dashboard"
-              className="text-white hover:underline"
+              className="text-black hover:underline font-semibold text-sm"
             >
               Bien-être émotionnel
             </Link>
-            <Link to="/user-profile" className="text-white hover:underline">
+            <Link
+              to="/user-profile"
+              className="text-black hover:underline font-semibold text-sm"
+            >
               Profil
             </Link>
           </div>
@@ -76,19 +86,20 @@ const BarreNavigation = () => {
         </div>
       </nav>
 
-      {/* Espace pour la barre de navigation */}
-      <div className="h-16"></div>
-
       {/* Menu déroulant */}
       {estMenuOuvert && (
         <div className="2xl:hidden bg-white p-4 absolute top-16 left-0 right-0 bottom-0 z-40">
-          <Link to="/" onClick={basculerMenu} className="block text-blue-500 py-2 hover:underline">
+          <Link
+            to="/"
+            onClick={basculerMenu}
+            className="block text-black py-2 hover:underline"
+          >
             Accueil
           </Link>
           <div onClick={basculerMenu}>
             <Link
               to="/skills/dashboard"
-              className="block text-blue-500 py-2 hover:underline"
+              className="block text-black py-2 hover:underline"
             >
               Compétences
             </Link>
@@ -96,7 +107,7 @@ const BarreNavigation = () => {
           <div onClick={basculerMenu}>
             <Link
               to="/fitness/dashboard"
-              className="block text-blue-500 py-2 hover:underline"
+              className="block text-black py-2 hover:underline"
             >
               Fitness
             </Link>
@@ -104,7 +115,7 @@ const BarreNavigation = () => {
           <div onClick={basculerMenu}>
             <Link
               to="/lifestyle/dashboard"
-              className="block text-blue-500 py-2 hover:underline"
+              className="block text-black py-2 hover:underline"
             >
               Style de vie
             </Link>
@@ -112,7 +123,7 @@ const BarreNavigation = () => {
           <div onClick={basculerMenu}>
             <Link
               to="/emotional-wellness/dashboard"
-              className="block text-blue-500 py-2 hover:underline"
+              className="block text-black py-2 hover:underline"
             >
               Bien-être émotionnel
             </Link>
@@ -120,7 +131,7 @@ const BarreNavigation = () => {
           <div onClick={basculerMenu}>
             <Link
               to="/user-profile"
-              className="block text-blue-500 py-2 hover:underline"
+              className="block text-black py-2 hover:underline"
             >
               Profil
             </Link>
@@ -130,13 +141,13 @@ const BarreNavigation = () => {
               <div className="flex flex-col gap-4 sm:hidden">
                 <Link
                   to="/dashboard"
-                  className="text-blue-500 border border-blue-500 font-bold px-4 rounded-md focus:outline-none focus:shadow-outline"
+                  className="text-black border border-black font-bold px-4 rounded-md focus:outline-none focus:shadow-outline"
                   onClick={basculerMenu}
                 >
                   Tableau de bord
                 </Link>
                 <div
-                  className="text-blue-500 border border-blue-500 font-bold px-4 rounded-md focus:outline-none focus:shadow-outline"
+                  className="text-black border border-black font-bold px-4 rounded-md focus:outline-none focus:shadow-outline"
                   onClick={basculerMenu}
                 >
                   <LogoutButton />
@@ -146,14 +157,14 @@ const BarreNavigation = () => {
               <div className="flex flex-col gap-4 sm:hidden ">
                 <Link
                   to="/inscription"
-                  className="text-blue-500 border border-blue-500 font-bold px-4 rounded-md focus:outline-none focus:shadow-outline"
+                  className="text-black border border-black font-bold px-4 rounded-md focus:outline-none focus:shadow-outline"
                   onClick={basculerMenu}
                 >
                   S&apos;inscrire
                 </Link>
                 <Link
                   to="/connexion"
-                  className="text-blue-500 border border-blue-500 font-bold px-4 rounded-md focus:outline-none focus:shadow-outline"
+                  className="text-black border border-black font-bold px-4 rounded-md focus:outline-none focus:shadow-outline"
                   onClick={basculerMenu}
                 >
                   Se connecter

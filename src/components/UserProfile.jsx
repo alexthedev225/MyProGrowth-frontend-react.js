@@ -48,7 +48,7 @@ const UserProfile = () => {
     const fetchUserConseils = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3000/api/users/${userId}/conseils`,
+          `https://myprogrowth.onrender.com/api/users/${userId}/conseils`,
           {
             headers: {
               Authorization: `Bearer ${authToken}`,
@@ -78,7 +78,7 @@ const UserProfile = () => {
     <div className="container mx-auto mt-8 mb-8 p-4">
       {isConnected ? (
         <>
-          <p className="text-3xl font-bold mb-8">Mon profil</p>
+        
           {loading ? (
             <FontAwesomeIcon
               icon={faSpinner}

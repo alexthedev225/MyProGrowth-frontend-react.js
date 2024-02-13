@@ -3,12 +3,12 @@ import ConseilDuJour from "../../components/ConseilDuJour";
 const HomePage = () => {
   return (
     <div>
-      <section className="text-center my-8">
-        <h2 className="text-3xl font-bold mb-4 text-pink-500">
+      <section className="text-center ">
+        <h2 className="text-pink-500 text-3xl font-bold mb-4">
           Bienvenue sur MyProGrowth
         </h2>
         <p className="text-lg">
-          Explore un voyage de croissance personnelle à travers le développement
+          Explore un voyage de croissance personnelle à travers la gestion et lees conseils sur le développement
           des compétences, la remise en forme, le style de vie et le bien-être
           émotionnel.
         </p>
@@ -17,12 +17,12 @@ const HomePage = () => {
       {/* Bannière Principale */}
       <section className="banner relative">
         <div
-          className="w-full h-96 max-h-screen border-pink-500 border-4 bg-cover bg-center"
+          className="w-full h-96 max-h-screen rounded-lg bg-cover bg-center"
           style={{
             backgroundImage: `url(${banner_img})`,
           }}
         />
-        <p className="bg-pink-500 text-white px-2 mt-2 mb-2 pt-4 pb-4 text-center">
+        <p className="bg-pink-500 flex items-center justify-center rounded-lg text-white px-2 mt-2 mb-2 pt-4 pb-4 text-center">
           Observe cette fleur, malgré les conditions hostiles de la montagne.{" "}
           <br />
           <br />
