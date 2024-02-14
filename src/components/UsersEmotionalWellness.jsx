@@ -1,76 +1,59 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Cookies from "js-cookie";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import Modal from "react-modal";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from "prop-types";
+import { useQuery } from "react-query";
 
 const UsersEmotionalWellness = ({ onEmotionalWellnessUpdateClick }) => {
-  const [usersEmotionalWellness, setUsersEmotionalWellness] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [emotionalWellnessToDelete, setEmotionalWellnessToDelete] =
-    useState(null);
-  const [error, setError] = useState(null);
-
+  const [emotionalWellnessToDelete, setEmotionalWellnessToDelete] = useState(
+    null
+  );
   const authToken = Cookies.get("token");
   const userId = Cookies.get("userId");
 
-  useEffect(() => {
-    const fetchEntries = async () => {
-      setLoading(true);
-      setError(null);
-
-      try {
-        const response = await fetch(
-          `https://myprogrowth.onrender.com/api/emotional-wellness/${userId}`,
-          {
-            headers: {
-              Authorization: `Bearer ${authToken}`,
-            },
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error(
-            "Échec de la récupération des journaux de bien-être émotionnel"
-          );
-        }
-
-        const data = await response.json();
-        setUsersEmotionalWellness(data);
-      } catch (error) {
-        console.error(
-          "Erreur lors de la récupération des journaux de bien-être émotionnel:",
-          error
-        );
-        setError(
-          "Une erreur s'est produite lors de la récupération des journaux de bien-être émotionnel."
-        );
-      } finally {
-        setLoading(false);
+  const fetchEntries = async () => {
+    const response = await fetch(
+      `https://myprogrowth.onrender.com/api/emotional-wellness/${userId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
       }
-    };
+    );
 
-    fetchEntries();
-  }, [authToken, userId]);
+    if (!response.ok) {
+      throw new Error(
+        "Échec de la récupération des journaux de bien-être émotionnel"
+      );
+    }
+
+    return response.json();
+  };
+
+  const { data: usersEmotionalWellness, isLoading, isError } = useQuery(
+    ["userEmotionalWellness", userId],
+    fetchEntries
+  );
 
   const deleteEmotionalWellnessEntry = async (EmotionalWellnessId) => {
     try {
-      // Effectuer l'appel DELETE à l'API
       const response = await fetch(
-        `https://myprogrowth.onrender.com/api/skills/${EmotionalWellnessId}`,
+        `https://myprogrowth.onrender.com/api/emotional-wellness/${EmotionalWellnessId}`,
         {
           method: "DELETE",
           headers: {
-            "Content-Type": "application/json",
             Authorization: `Bearer ${authToken}`,
           },
         }
       );
 
       if (!response.ok) {
-        throw new Error("Échec de la suppression de la compétence");
+        throw new Error(
+          "Échec de la suppression de l'entrée de bien-être émotionnel"
+        );
       }
 
       setEmotionalWellnessToDelete(EmotionalWellnessId);
@@ -79,15 +62,19 @@ const UsersEmotionalWellness = ({ onEmotionalWellnessUpdateClick }) => {
         setEmotionalWellnessToDelete(null);
       }, 1000);
 
-      location.reload();
+      // Reload the page or fetch the data again after deletion
+      // location.reload();
     } catch (error) {
-      console.error("Erreur lors de la suppression de la compétence:", error);
+      console.error(
+        "Erreur lors de la suppression de l'entrée de bien-être émotionnel:",
+        error
+      );
     }
   };
 
   return (
     <div className="container mx-auto mt-8">
-      {loading ? (
+      {isLoading ? (
         <div className="flex justify-center items-center">
           <FontAwesomeIcon
             icon={faSpinner}
@@ -97,8 +84,10 @@ const UsersEmotionalWellness = ({ onEmotionalWellnessUpdateClick }) => {
         </div>
       ) : (
         <div>
-          {error ? (
-            <p className="text-red-500">{error}</p>
+          {isError ? (
+            <p className="text-red-500">
+              Erreur lors de la récupération des journaux de bien-être émotionnel
+            </p>
           ) : (
             usersEmotionalWellness.length === 0 && (
               <div className="text-center">
@@ -124,14 +113,13 @@ const UsersEmotionalWellness = ({ onEmotionalWellnessUpdateClick }) => {
                   <div className="col-span-3 sm:col-span-2">
                     <div className="mb-2">
                       <strong>Date:</strong>{" "}
-                      {new Date(emotionalWellness.entryDate).toLocaleDateString(
-                        "fr-FR",
-                        {
-                          year: "numeric",
-                          month: "long",
-                          day: "numeric",
-                        }
-                      )}
+                      {new Date(
+                        emotionalWellness.entryDate
+                      ).toLocaleDateString("fr-FR", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })}
                     </div>
                     <div className="mb-2">
                       <strong>Émotion:</strong> {emotionalWellness.emotion}
@@ -174,9 +162,9 @@ const UsersEmotionalWellness = ({ onEmotionalWellnessUpdateClick }) => {
             backgroundColor: "rgba(0, 0, 0, 0.5)",
           },
           content: {
-            width: "max-content", // Ajustez la taille comme nécessaire
-            height: "max-content", // Ajustez la taille comme nécessaire
-            margin: "auto", // Pour centrer le contenu
+            width: "max-content",
+            height: "max-content",
+            margin: "auto",
             overflow: "auto",
             padding: "3rem",
             borderRadius: "0.8rem",

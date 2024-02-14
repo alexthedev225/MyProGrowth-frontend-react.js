@@ -53,13 +53,14 @@ const Dashboard = () => {
 
   return (
     <div className="container mx-auto my-8 p-4 bg-white rounded-md ">
-      <h2 className="text-3xl font-bold mb-8">Tableau de bord</h2>
       {loading ? (
-        <FontAwesomeIcon
-          icon={faSpinner}
-          spin
-          className="text-4xl text-pink-500"
-        />
+        <div className="container flex items-center justify-center h-[50vh]">
+          <FontAwesomeIcon
+            icon={faSpinner}
+            spin
+            className="text-4xl text-pink-500 "
+          />
+        </div>
       ) : !dashboardData ||
         (dashboardData.userDashboard === null &&
           dashboardData.fitnessEntries.length === 0 &&
@@ -80,6 +81,7 @@ const Dashboard = () => {
         <div>
           {dashboardData && (
             <div>
+              <h2 className="text-3xl font-bold mb-8">Tableau de bord</h2>
               <div className="mb-8">
                 <h3 className="text-xl font-semibold mb-4">
                   Informations du tableau de bord
@@ -116,7 +118,7 @@ const Dashboard = () => {
                   ))}
                 </div>
               )}
-              {dashboardData.lifestyleEntries.length > 0&& (
+              {dashboardData.lifestyleEntries.length > 0 && (
                 <div className="mb-8">
                   <h3 className="text-xl font-semibold mb-4">Modes de vie</h3>
                   {dashboardData.lifestyleEntries.map((entry) => (

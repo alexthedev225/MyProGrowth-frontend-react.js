@@ -37,7 +37,7 @@ const CreateEmotionalWellnessEntry = () => {
   };
 
   return (
-    <div className="p-6 bg-white rounded-md shadow-md">
+    <div className="p-6 rounded-md shadow-md ">
       <h2 className="text-xl font-semibold mb-4">Création d&apos;un journal de bien-être émotionnel</h2>
       <label className="block text-sm font-medium text-gray-600 mb-2">
         Date de l&apos;entrée:

@@ -3,12 +3,12 @@ import ConseilDuJour from "../../components/ConseilDuJour";
 const HomePage = () => {
   return (
     <div>
-      <section className="text-center ">
+      <section className="text-center mb-6">
         <h2 className="text-pink-500 text-3xl font-bold mb-4">
           Bienvenue sur MyProGrowth
         </h2>
         <p className="text-lg">
-          Explore un voyage de croissance personnelle à travers la gestion et lees conseils sur le développement
+          Explore un voyage de croissance personnelle à travers la gestion et les conseils sur le développement
           des compétences, la remise en forme, le style de vie et le bien-être
           émotionnel.
         </p>
@@ -23,7 +23,7 @@ const HomePage = () => {
           }}
         />
         <p className="bg-pink-500 flex items-center justify-center rounded-lg text-white px-2 mt-2 mb-2 pt-4 pb-4 text-center">
-          Observe cette fleur, malgré les conditions hostiles de la montagne.{" "}
+          Observe cette fleur, malgré les conditions hostiles de la montagne.
           <br />
           <br />
           Elle as trouvé un moyen de s&apos;epanouir ! <br />
@@ -39,12 +39,6 @@ const HomePage = () => {
       <section className="features">
         {/* Sections dédiées aux fonctionnalités principales */}
         {/* ... */}
-      </section>
-
-      {/* Section de Connexion/Réinscription */}
-      <section className="login-signup">
-        {/* Formulaire de connexion pour les utilisateurs enregistrés */}
-        {/* Lien vers la page d'inscription pour les nouveaux utilisateurs */}
       </section>
 
       {/* Graphiques de Progression */}

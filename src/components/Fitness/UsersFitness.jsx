@@ -1,19 +1,14 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Cookies from "js-cookie";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash, faSpinner } from "@fortawesome/free-solid-svg-icons";
 import Modal from "react-modal";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from 'prop-types';
-
-
+import { useQuery } from 'react-query';
 
 const UsersFitness = ({ onFitnessUpdateClick }) => {
-  const [usersFitness, setUsersFitness] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [fitnessToDelete, setFitnessToDelete] = useState(null);
-  const [error, setError] = useState(null);
-
   const authToken = Cookies.get("token");
   const userId = Cookies.get("userId");
 
@@ -30,41 +25,26 @@ const UsersFitness = ({ onFitnessUpdateClick }) => {
     calisthenics: "Calisthénie",
   };
 
-  useEffect(() => {
-    const fetchUserFitnessEntries = async () => {
-      try {
-        const response = await fetch(
-          `https://myprogrowth.onrender.com/api/fitness/${userId}`,
-          {
-            headers: {
-              Authorization: `Bearer ${authToken}`,
-            },
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error(
-            "Échec de la récupération des entrées de condition physique de l'utilisateur"
-          );
-        }
-
-        const data = await response.json();
-        setUsersFitness(data);
-        setLoading(false);
-      } catch (error) {
-        console.error(
-          "Erreur lors de la récupération des entrées de condition physique de l'utilisateur:",
-          error
-        );
-        setError(
-          "Une erreur s'est produite lors de la récupération des entrées de condition physique."
-        );
-        setLoading(false);
+  const fetchUserFitnessEntries = async () => {
+    const response = await fetch(
+      `https://myprogrowth.onrender.com/api/fitness/${userId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
       }
-    };
+    );
 
-    fetchUserFitnessEntries();
-  }, [authToken, userId]);
+    if (!response.ok) {
+      throw new Error(
+        "Échec de la récupération des entrées de condition physique de l'utilisateur"
+      );
+    }
+
+    return response.json();
+  };
+
+  const { data: usersFitness, isLoading, isError } = useQuery(['userFitness', userId], fetchUserFitnessEntries);
 
   const deleteFitnessEntry = async (fitnessId) => {
     try {
@@ -90,23 +70,19 @@ const UsersFitness = ({ onFitnessUpdateClick }) => {
         setFitnessToDelete(null);
       }, 1000);
 
-      location.reload();
+      // Reload the page or fetch the data again after deletion
+      // location.reload();
     } catch (error) {
       console.error(
         "Erreur lors de la suppression de l'entrée de condition physique:",
         error
       );
-      setError(
-        "Une erreur s'est produite lors de la suppression de l'entrée de condition physique."
-      );
-    } finally {
-      setLoading(false);
     }
   };
 
   return (
     <div className="container mx-auto mt-8">
-      {loading ? (
+      {isLoading ? (
         <div className="flex justify-center items-center">
           <FontAwesomeIcon
             icon={faSpinner}
@@ -116,8 +92,8 @@ const UsersFitness = ({ onFitnessUpdateClick }) => {
         </div>
       ) : (
         <div>
-          {error ? (
-            <p className="text-red-500">{error}</p>
+          {isError ? (
+            <p className="text-red-500">Erreur lors de la récupération des entrées de condition physique</p>
           ) : usersFitness.length === 0 ? (
             <div className="text-center">
               <p className="text-lg mb-4">
@@ -126,7 +102,6 @@ const UsersFitness = ({ onFitnessUpdateClick }) => {
               <p>
                 Ajoutez des entrées de condition physique dès maintenant pour suivre votre progrès !
               </p>
-              
             </div>
           ) : (
             <ul className="grid gap-4">
@@ -209,7 +184,9 @@ const UsersFitness = ({ onFitnessUpdateClick }) => {
     </div>
   );
 };
+
 UsersFitness.propTypes = {
   onFitnessUpdateClick: PropTypes.func.isRequired,
 };
+
 export default UsersFitness;

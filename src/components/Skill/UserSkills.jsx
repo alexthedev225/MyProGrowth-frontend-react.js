@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Cookies from "js-cookie";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrash, faSpinner } from "@fortawesome/free-solid-svg-icons";
@@ -6,49 +6,32 @@ import Modal from "react-modal";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from 'prop-types';
-
-
+import { useQuery } from 'react-query';
 
 const UserSkills = ({ onSkillUpdateClick }) => {
-  const [userSkills, setUserSkills] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [skillToDelete, setSkillToDelete] = useState(null);
-  const [error, setError] = useState(null);
-
-  // Récupérer le token d'autorisation depuis l'endroit où il est stocké (par exemple, dans le state ou dans les cookies)
   const authToken = Cookies.get("token");
-  // Récupérer l'ID de l'utilisateur à partir du token
-  const userId = Cookies.get("userId"); // Remplace cela par la vraie logique pour obtenir l'ID
+  const userId = Cookies.get("userId");
 
-  useEffect(() => {
-    // Appeler l'API backend pour récupérer les compétences de l'utilisateur
-    fetch(`https://myprogrowth.onrender.com/api/skills/${userId}`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Échec de la récupération des compétences");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setUserSkills(data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error(
-          "Erreur lors de la récupération des compétences :",
-          error.message
-        );
-        setError(
-          "Une erreur s'est produite lors de la récupération du mode de vie de l'utilisateur."
-        );
-        setLoading(false);
-      });
-  }, [authToken, userId]); // Le tableau vide signifie que cet effet s'exécute une seule fois après le rendu initial
+  const fetchUserSkills = async () => {
+    const response = await fetch(
+      `https://myprogrowth.onrender.com/api/skills/${userId}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Échec de la récupération des compétences");
+    }
+
+    return response.json();
+  };
+
+  const { data: userSkills, isLoading, isError } = useQuery(['userSkills', userId], fetchUserSkills);
 
   const mapSkillLevel = (level) => {
     switch (level) {
@@ -65,7 +48,6 @@ const UserSkills = ({ onSkillUpdateClick }) => {
 
   const deleteSkill = async (skillId) => {
     try {
-      // Effectuer l'appel DELETE à l'API
       const response = await fetch(
         `https://myprogrowth.onrender.com/api/skills/${skillId}`,
         {
@@ -86,8 +68,6 @@ const UserSkills = ({ onSkillUpdateClick }) => {
       setTimeout(() => {
         setSkillToDelete(null);
       }, 1000);
-
-      location.reload();
     } catch (error) {
       console.error("Erreur lors de la suppression de la compétence:", error);
     }
@@ -95,7 +75,7 @@ const UserSkills = ({ onSkillUpdateClick }) => {
 
   return (
     <div className="container mx-auto mt-8">
-      {loading ? (
+      {isLoading ? (
         <div className="flex justify-center items-center">
           <FontAwesomeIcon
             icon={faSpinner}
@@ -105,8 +85,8 @@ const UserSkills = ({ onSkillUpdateClick }) => {
         </div>
       ) : (
         <div>
-          {error ? (
-            <p className="text-red-500">{error}</p>
+          {isError ? (
+            <p className="text-red-500">Erreur lors de la récupération des compétences</p>
           ) : userSkills.length === 0 ? (
             <div className="text-center">
               <p className="text-lg mb-4">
@@ -200,7 +180,9 @@ const UserSkills = ({ onSkillUpdateClick }) => {
     </div>
   );
 };
+
 UserSkills.propTypes = {
   onSkillUpdateClick: PropTypes.func.isRequired, 
  };
+
 export default UserSkills;

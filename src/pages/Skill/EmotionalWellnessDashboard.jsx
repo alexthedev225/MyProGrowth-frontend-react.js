@@ -44,7 +44,7 @@ const EmotionalWellnessDashboardPage = () => {
               </div>
             )}
           </div>
-          <div className="bg-white rounded-md">
+          <div className="bg-white h-[max-content]">
             <CreateEmotionalWellnessEntry />
           </div>
         </div>

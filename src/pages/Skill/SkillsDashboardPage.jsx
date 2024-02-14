@@ -43,10 +43,10 @@ const SkillsDashboardPage = () => {
             </div>
 
             <div
-              className="bg-white p-6 rounded-md shadow-md"
-              style={{ maxHeight: selectedSkillId ? "300px" : "none" }}
+              className="bg-white p-6 rounded-md shadow-md h-[max-content]"
+              
             >
-              <h2 className="text-xl font-semibold mb-4">
+              <h2 className="text-xl font-semibold ">
                 Ajouter une compétence
               </h2>
               <SkillForm />

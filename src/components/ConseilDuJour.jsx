@@ -1,27 +1,24 @@
-import { useState, useEffect } from "react";
+import { useQuery } from 'react-query';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpinner} from '@fortawesome/free-solid-svg-icons';
 
 const ConseilDuJour = () => {
-  const [conseil, setConseil] = useState("");
+  const fetchConseilDuJour = async () => {
+    const response = await fetch(
+      "https://myprogrowth.onrender.com/api/conseils/aleatoire"
+    );
+    if (!response.ok) {
+      throw new Error("Échec de la récupération du conseil du jour");
+    }
+    const data = await response.json();
+    return data.conseil;
+  };
 
-  useEffect(() => {
-    const fetchConseilDuJour = async () => {
-      try {
-      
-        const response = await fetch(
-          "https://myprogrowth.onrender.com/api/conseils/aleatoire"
-        );
-        if (!response.ok) {
-          throw new Error("Échec de la récupération du conseil du jour");
-        }
-        const data = await response.json();
-        setConseil(data.conseil);
-      } catch (error) {
-        console.error(error);
-      }
-    };
+  const { data: conseil, isLoading, isError } = useQuery('conseilDuJour', fetchConseilDuJour);
 
-    fetchConseilDuJour();
-  }, []);
+  if (isLoading) return <FontAwesomeIcon icon={faSpinner} spin className='text-pink-500'/>; // Utilisation de l'icône des trois points de Font Awesome pendant le chargement
+
+  if (isError) return <div>Error fetching data</div>;
 
   return (
     <div className="mb-8">

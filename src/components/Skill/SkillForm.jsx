@@ -5,53 +5,56 @@ const SkillForm = () => {
   const [skillName, setSkillName] = useState("");
   const [skillLevel, setSkillLevel] = useState("facile");
 
-  const handleSkillSubmit = (skillData) => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+        // Appel de la fonction de soumission de compétence fournie par le parent
+        const response = await handleSkillSubmit({ skillName, skillLevel });
+
+        // Si la réponse est ok, réinitialise les champs du formulaire
+        if (response.ok) {
+            setSkillName("");
+            setSkillLevel("facile");
+        }
+    } catch (error) {
+        // Gérer les erreurs en affichant un message à l'utilisateur
+        console.error("Erreur lors de la création de compétence :", error.message);
+        // Afficher un message d'erreur à l'utilisateur
+        // Vous pouvez utiliser une alerte ou un composant d'erreur dédié
+    }
+};
+
+const handleSkillSubmit = async (skillData) => {
     const authToken = Cookies.get("token");
 
     // Vérifier si le token est présent
     if (!authToken) {
-      console.error("Token d'autorisation non trouvé.");
-      // Gérer l'absence de token, par exemple, rediriger l'utilisateur vers la page de connexion
-      return;
+        throw new Error("Token d'autorisation non trouvé.");
     }
 
-    // Appeler l'API backend pour créer une compétence
-    fetch("https://myprogrowth.onrender.com/api/skills", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${authToken}`,
-        // Ajoutez d'autres en-têtes nécessaires
-      },
-      body: JSON.stringify(skillData),
-    })
-      .then((response) => {
+    try {
+        // Appeler l'API backend pour créer une compétence
+        const response = await fetch("https://myprogrowth.onrender.com/api/skills", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${authToken}`,
+                // Ajoutez d'autres en-têtes nécessaires
+            },
+            body: JSON.stringify(skillData),
+        });
+
         if (!response.ok) {
-          throw new Error("Échec de la création de compétence");
+            throw new Error("Échec de la création de compétence");
         }
+        window.location.reload()
         return response.json();
-      })
-      .then((data) => {
-        console.log("Compétence créée avec succès :", data);
-        // Gérer toute action supplémentaire après la création de compétence réussie
-      })
-      .catch((error) => {
-        console.error(
-          "Erreur lors de la création de compétence :",
-          error.message
-        );
-        // Gérer les erreurs, par exemple, afficher un message à l'utilisateur
-      });
-  };
+    } catch (error) {
+        throw new Error("Échec de la création de compétence :", error.message);
+    }
+};
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    // Appel de la fonction de soumission de compétence fournie par le parent
-    handleSkillSubmit({ skillName, skillLevel });
-
-    location.reload();
-  };
 
   return (
     <form onSubmit={handleSubmit} className="mt-8">

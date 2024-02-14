@@ -85,7 +85,7 @@ const CreateFitnessEntry = () => {
   };
 
   return (
-    <div className="p-6 bg-white rounded-md shadow-md">
+    <div className="p-6 bg-white rounded-md shadow-md h-[max-content]">
       <h2 className="text-xl font-semibold mb-4">
         Créer une entrée de condition physique
       </h2>

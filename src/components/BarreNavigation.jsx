@@ -29,10 +29,10 @@ const BarreNavigation = () => {
   return (
     <div>
       {/* Barre de navigation */}
-      <nav className="bg-white p-4 w-full z-50 border">
+      <nav className="bg-white p-4 w-full z-50 border-b">
         <div className="container mx-auto flex justify-between items-center">
           <Link to="/">
-            <img src={logo} alt="logo" className="h h-8" />
+            <img src={logo} alt="logo" className="h-12" />
           </Link>
           <CtaSection />
           <div className="hidden xl:flex space-x-4">

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Cookies from "js-cookie";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -10,68 +10,56 @@ import {
   faSpinner,
 } from "@fortawesome/free-solid-svg-icons";
 import PropTypes from 'prop-types';
-
-
+import { useQuery } from 'react-query';
 
 const UserLifestyle = ({ onLifestyleUpdateClick, onHasLifestyle }) => {
-  const [loading, setLoading] = useState(true);
-  const [lifestyleData, setLifestyleData] = useState({});
   const [error, setError] = useState(null);
   const userId = Cookies.get("userId");
   const authToken = Cookies.get("token");
 
-  useEffect(() => {
-    const fetchUserLifestyle = async () => {
-      try {
-        const response = await fetch(
-          `https://myprogrowth.onrender.com/api/lifestyle/${userId}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${authToken}`,
-            },
-          }
-        );
-
-        if (!response.ok) {
-          throw new Error(
-            "Échec de la récupération du mode de vie de l'utilisateur"
-          );
-        }
-
-        const data = await response.json();
-
-        if (data && Object.keys(data).length > 0) {
-          setLifestyleData(data);
-          onHasLifestyle(true);
-        }
-      } catch (error) {
-        console.error(
-          "Erreur lors de la récupération du mode de vie de l'utilisateur:",
-          error
-        );
-        setError(
-          "Une erreur s'est produite lors de la récupération du mode de vie de l'utilisateur."
-        );
-      } finally {
-        setLoading(false);
+  const fetchUserLifestyle = async () => {
+    const response = await fetch(
+      `https://myprogrowth.onrender.com/api/lifestyle/${userId}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authToken}`,
+        },
       }
-    };
+    );
 
-    fetchUserLifestyle();
-  }, [authToken, onHasLifestyle, userId]);
+    if (!response.ok) {
+      throw new Error(
+        "Échec de la récupération du mode de vie de l'utilisateur"
+      );
+    }
+
+    return response.json();
+  };
+
+  const { data: lifestyleData, isLoading } = useQuery(['userLifestyle', userId], fetchUserLifestyle, {
+    onSuccess: () => {
+      onHasLifestyle(true); // Appel de la fonction pour indiquer que les données du mode de vie sont chargées
+    },
+    onError: (error) => {
+      console.error("Erreur lors de la récupération du mode de vie de l'utilisateur:", error);
+      setError(
+        "Une erreur s'est produite lors de la récupération du mode de vie de l'utilisateur."
+      );
+    },
+  });
 
   return (
     <div className="bg-white  ">
-      {loading && <div className="flex justify-center items-center">
+      {isLoading && <div className="flex justify-center items-center">
           <FontAwesomeIcon
             icon={faSpinner}
             spin
             className="text-4xl text-pink-500"
           />
         </div>}
-      {!loading && !error && Object.keys(lifestyleData).length > 0 && (
+      {!isLoading && !error && Object.keys(lifestyleData).length > 0 && (
         <div className="space-y-2">
           <p className="mb-2 flex items-center">
             <span className="mr-2">Sommeil:</span>
@@ -114,7 +102,7 @@ const UserLifestyle = ({ onLifestyleUpdateClick, onHasLifestyle }) => {
       {error ? (
         <p className="text-red-500">{error}</p>
       ) : (
-        !loading &&
+        !isLoading &&
         !error &&
         Object.keys(lifestyleData).length === 0 && (
           <div className="text-center">
@@ -131,8 +119,9 @@ const UserLifestyle = ({ onLifestyleUpdateClick, onHasLifestyle }) => {
     </div>
   );
 };
+
 UserLifestyle.propTypes = {
-  onHasLifestyle: PropTypes.bool,
+  onHasLifestyle: PropTypes.func,
   onLifestyleUpdateClick: PropTypes.func, // Validation de type pour onCancel
 };
 

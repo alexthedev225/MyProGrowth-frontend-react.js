@@ -30,7 +30,7 @@ const FitnessDashboardPage = () => {
               </h2>
               <UsersFitness onFitnessUpdateClick={handleUpdateFitnessClick} />
               {selectedFitnessId && (
-                <div className="rounded-md shadow-md mt-4 overflow-hidden">
+                <div className="rounded-md shadow-md mt-4 overflow-hidden ">
                   {/* Utilisez la couleur rose pour le fond de cette section */}
                   <UpdateFitnessEntry
                     fitnessId={selectedFitnessId}
