@@ -8,9 +8,7 @@ const HomePage = () => {
           Bienvenue sur MyProGrowth
         </h2>
         <p className="text-lg">
-          Explore un voyage de croissance personnelle à travers la gestion et les conseils sur le développement
-          des compétences, la remise en forme, le style de vie et le bien-être
-          émotionnel.
+        Découvre un parcours de développement personnel à travers la gestion et les conseils sur l&apos;amélioration des compétences, le bien-être physique, le style de vie et l&apos;équilibre émotionnel.
         </p>
       </section>
       <ConseilDuJour />

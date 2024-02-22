@@ -58,7 +58,7 @@ const BarreNavigation = () => {
               to="/lifestyle/dashboard"
               className="text-black hover:underline font-semibold text-sm"
             >
-              Style de vie
+              Mode de vie
             </Link>
             <Link
               to="/emotional-wellness/dashboard"
@@ -66,12 +66,7 @@ const BarreNavigation = () => {
             >
               Bien-être émotionnel
             </Link>
-            <Link
-              to="/user-profile"
-              className="text-black hover:underline font-semibold text-sm"
-            >
-              Profil
-            </Link>
+           
           </div>
           <div
             className={`${styles["menu-btn"]} ${
@@ -117,7 +112,7 @@ const BarreNavigation = () => {
               to="/lifestyle/dashboard"
               className="block text-black py-2 hover:underline"
             >
-              Style de vie
+              Mode de vie
             </Link>
           </div>
           <div onClick={basculerMenu}>
@@ -128,14 +123,7 @@ const BarreNavigation = () => {
               Bien-être émotionnel
             </Link>
           </div>
-          <div onClick={basculerMenu}>
-            <Link
-              to="/user-profile"
-              className="block text-black py-2 hover:underline"
-            >
-              Profil
-            </Link>
-          </div>
+        
           <section className="flex items-center space-y-4 h-max text-center">
             {isAuthenticated ? (
               <div className="flex flex-col gap-4 sm:hidden">

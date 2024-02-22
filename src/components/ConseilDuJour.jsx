@@ -1,29 +1,27 @@
-import { useQuery } from 'react-query';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSpinner} from '@fortawesome/free-solid-svg-icons';
+import { useState, useEffect } from 'react';
+import conseils from '../data/conseils';
 
 const ConseilDuJour = () => {
-  const fetchConseilDuJour = async () => {
-    const response = await fetch(
-      "https://myprogrowth.onrender.com/api/conseils/aleatoire"
-    );
-    if (!response.ok) {
-      throw new Error("Échec de la récupération du conseil du jour");
-    }
-    const data = await response.json();
-    return data.conseil;
-  };
+  const [conseilDuJour, setConseilDuJour] = useState('');
 
-  const { data: conseil, isLoading, isError } = useQuery('conseilDuJour', fetchConseilDuJour);
+  useEffect(() => {
+    const getConseilDuJour = () => {
+      const today = new Date();
+      const dayOfYear = today.getFullYear() * 1000 + today.getDay();
+      const index = dayOfYear % conseils.length;
+      setConseilDuJour(conseils[index].conseil);
+    };
 
-  if (isLoading) return <FontAwesomeIcon icon={faSpinner} spin className='text-pink-500'/>; // Utilisation de l'icône des trois points de Font Awesome pendant le chargement
+    getConseilDuJour();
+    const timer = setInterval(getConseilDuJour, 1000 * 60 * 60 * 24);
 
-  if (isError) return <div>Error fetching data</div>;
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <div className="mb-8">
       <h2 className="font-bold text-xl mb-4 text-pink-500">Conseil du Jour</h2>
-      <p className="text-lg">{conseil}</p>
+      <p className="text-lg">{conseilDuJour}</p>
     </div>
   );
 };

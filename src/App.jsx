@@ -18,9 +18,9 @@ import UpdateEmotionalWellnessEntry from "./components/UpdateEmotionalWellnessEn
 import CreateProfile from "./components/CreateProfile";
 import UserProfile from "./components/UserProfile";
 import SkillsDashboardPage from "./pages/Skill/SkillsDashboardPage";
-import LifestyleDashboard from "./pages/Skill/LifestyleDashboard";
-import FitnessDashboardPage from "./pages/Skill/FitnessDashboard";
-import EmotionalWellnessDashboardPage from "./pages/Skill/EmotionalWellnessDashboard";
+import LifestyleDashboard from "./pages/Lifestyle/LifestyleDashboard";
+import FitnessDashboardPage from "./pages/Fitness/FitnessDashboard";
+import EmotionalWellnessDashboardPage from "./pages/EmotionalWellness/EmotionalWellnessDashboard";
 import Dashboard from "./components/Dashboard/Dashboard";
 const App = () => {
   return (

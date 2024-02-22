@@ -73,7 +73,7 @@ const UserProfile = () => {
   const { data: userConseils } = userConseilsQuery;
 
   return (
-    <div className="container mx-auto mt-8 mb-8 p-4">
+    <div className="container mx-auto p-4">
       <div>
         <div className="mb-8">
           <h3 className="text-xl font-semibold mb-2">Mon objectif de fitness:</h3>
