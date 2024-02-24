@@ -1,9 +1,10 @@
 import banner_img from "../../assets/banner.jpeg";
 import ConseilDuJour from "../../components/ConseilDuJour";
+
 const HomePage = () => {
   return (
     <div>
-      <section className="text-center mb-6">
+      <section className="text-center mb-6 ">
         <h2 className="text-pink-500 text-3xl font-bold mb-4">
           Bienvenue sur MyProGrowth
         </h2>

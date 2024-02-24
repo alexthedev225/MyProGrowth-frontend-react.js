@@ -60,6 +60,7 @@ const UsersEmotionalWellness = ({ onEmotionalWellnessUpdateClick }) => {
 
       setTimeout(() => {
         setEmotionalWellnessToDelete(null);
+        window.location.reload()
       }, 1000);
 
       // Reload the page or fetch the data again after deletion

@@ -36,8 +36,8 @@ const LoginForm = () => {
         const data = await response.json();
         console.log("Connexion réussie ! Token JWT :", data.token, data.userId);
 
-        Cookies.set("token", data.token, { expires: 24 / 24 });
-        Cookies.set("userId", data.userId, { expires: 24 / 24 });
+        Cookies.set("token", data.token);
+        Cookies.set("userId", data.userId);
 
         // Affichage de la modal de succès
         setShowModal(true);

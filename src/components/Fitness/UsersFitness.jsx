@@ -68,6 +68,7 @@ const UsersFitness = ({ onFitnessUpdateClick }) => {
 
       setTimeout(() => {
         setFitnessToDelete(null);
+        window.location.reload()
       }, 1000);
 
       // Reload the page or fetch the data again after deletion

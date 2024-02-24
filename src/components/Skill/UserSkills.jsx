@@ -67,6 +67,7 @@ const UserSkills = ({ onSkillUpdateClick }) => {
 
       setTimeout(() => {
         setSkillToDelete(null);
+        window.location.reload()
       }, 1000);
     } catch (error) {
       console.error("Erreur lors de la suppression de la compétence:", error);
